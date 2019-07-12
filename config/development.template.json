@@ -1,0 +1,27 @@
+{
+    "app": {
+      "port": 7000,
+      "key": "secret",
+      "env": "development"
+    },
+    "log": {
+      "console": {
+        "level": "debug"
+      },
+      "gelf": {
+        "level": "info",
+        "host": "logs.infranw.com.br",
+        "port": 12205
+      }
+    },
+    "amqp": {
+      "host": "amqp://rabbit",
+      "toSend": "to-send"
+    },
+    "elastic": {
+      "host": "elasticsearch",
+      "index": "history",
+      "port": 9002
+    }
+  }
+  

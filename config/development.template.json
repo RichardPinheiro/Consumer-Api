@@ -15,13 +15,12 @@
       }
     },
     "amqp": {
-      "host": "amqp://rabbit",
-      "toSend": "to-send"
+      "host": "amqp://localhost",
+      "toSend": "detection"
     },
     "elastic": {
-      "host": "elasticsearch",
-      "index": "history",
-      "port": 9002
+      "connectionString": "localhost:9200",
+      "index": "detection"
     }
   }
   

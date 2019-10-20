@@ -1,11 +1,11 @@
 'use strict'
 
-const Config = require('config')
+const Config = require('../../../infra/cross-cutting/Config')
 const { Client } = require('elasticsearch')
 const client = new Client({ host: Config.elasticsearch.connectionString })
 
-module.exports = class Elastic {
-    static save(value) {
+class ElasticSearchService {
+    save(value) {
         return new Promise((resolve, reject) => {
             let payload = {index: Config.elasticsearch.index, body: value}
             let response = client.index(payload);
@@ -13,3 +13,5 @@ module.exports = class Elastic {
         })
     }
 }
+
+module.exports = ElasticSearchService

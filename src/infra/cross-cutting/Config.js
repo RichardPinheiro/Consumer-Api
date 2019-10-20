@@ -113,6 +113,15 @@ class Config {
       }
       : false
   }
+
+  /**
+   * @returns {String}
+   * @static
+   */
+  static get elasticsearch () {
+    return getProperty('elasticsearch.connectionString', '')
+  }
+
 }
 
 /**

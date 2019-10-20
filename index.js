@@ -1,18 +1,17 @@
 'use strict'
-const Config = require('config')
-const { amqp } = require('./src/queue')
-const ToSend = require('./src/consumer/toSend')
-const { logger } = require('./src/log')
+const express = require('express')
+const bodyParser = require('body-parser')
+const app = express()
+const routes = require("./src/routes/routes")
+const Config = require('./src/infra/cross-cutting/Config')
+const { name } = require('./package.json')
 
-amqp.connect(Config.amqp.host)
-	.then(connection => amqp.createChannel(connection))
-	.then(channel => {
-        logger.verbose(`${new Date().toLocaleString()} - Listening rabbit`)
-		let toSend = new ToSend()
-		toSend.consumer(channel, Config.amqp.toSend)
-	})
-	.catch(error => {
-        logger.error(`${new Date().toLocaleString()} - Cannot connect to Rabbit`)
-        logger.error(error)
-		process.exit(1)
-	})
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.json())
+app.use('/api', routes)
+
+app.get('/', (req, res) => res.json('Hello World with Consumer Api'))
+
+app.listen(Config.port, () => {
+	console.log(`${name} server running on ${Config.port}`)
+})
